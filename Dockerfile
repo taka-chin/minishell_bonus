@@ -16,4 +16,4 @@ RUN apt-get update && \
 
 WORKDIR /code
 
-ENTRYPOINT ["valgrind --leak-check=full --show-leak-kinds=all ./a.out"]
+ENTRYPOINT ["valgrind --leak-check=full --show-leak-kinds=all ./minishell"]
