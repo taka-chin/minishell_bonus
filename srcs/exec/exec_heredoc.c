@@ -6,21 +6,21 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 21:27:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 15:57:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/02 04:31:02 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <limits.h>
 #include "exec_command.h"
 #include "library.h"
+#include <fcntl.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #define WRITE_BYTES 2000
 
-void	*exec_delete_file_free(char *file, t_data *d);
+void			*exec_delete_file_free(char *file, t_data *d);
 
 static char	*get_heredoc_tmpfile(void)
 {
@@ -44,30 +44,32 @@ static char	*get_heredoc_tmpfile(void)
 
 static void	heredoc_put_error(t_data *d)
 {
-	const char	*msg = "heredoc: string error\n";
+	const char	*msg;
 
+	msg = "heredoc: string error\n";
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 }
 
 static bool	write_loop(t_redirect_list *node, int fd, t_data *d)
 {
-	ssize_t			w_bytes;
-	size_t			i;
-	bool			is_success;
-	ssize_t			w_len;
-	const size_t	word_len = ft_strlen(node->word);
+	ssize_t	w_bytes;
+	size_t	i;
+	bool	is_success;
+	ssize_t	w_len;
+	size_t	word_len;
 
+	word_len = ft_strlen(node->word);
 	is_success = true;
 	w_len = WRITE_BYTES;
 	i = 1;
-	while (w_len == WRITE_BYTES && i != SIZE_T_MAX)
+	while (w_len == WRITE_BYTES && i != SSIZE_MAX)
 	{
 		if (word_len >= (WRITE_BYTES * i))
 			w_len = WRITE_BYTES;
 		else
 			w_len = word_len - (WRITE_BYTES * (i - 1));
 		w_bytes = try_write(fd, &(node->word[(i - 1) * WRITE_BYTES]), w_len, d);
-		if (w_bytes == -1 || i == SIZE_T_MAX)
+		if (w_bytes == -1 || i == SSIZE_MAX)
 			heredoc_put_error(d);
 		i++;
 	}
