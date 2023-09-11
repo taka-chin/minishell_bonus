@@ -84,8 +84,8 @@ void	read_eval_print_loop(t_data *d)
 		}
 		token = tokenize(line);
 		ast = parse(&token, d);
-		/* if (d->syntax_flag == false && heredoc(ast, d)) */
-		if (d->syntax_flag == true && heredoc(ast, d))
+		if (d->syntax_flag == false && heredoc(ast, d))
+		/* if (d->syntax_flag == true && heredoc(ast, d)) */
 		{
 			expansion(ast, d);
 			exec_command(ast, EXEC_START, d);
