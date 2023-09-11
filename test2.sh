@@ -21,4 +21,4 @@ assert() {
 }
 
 #$
-assert "ls"
+assert "ls -l"
