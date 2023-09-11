@@ -14,17 +14,18 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# ifeq ($(UNAME), Linux)
-# 	RL_DIR = /usr/include
-# else
-# 	RL_DIR = $(shell brew --prefix readline)
-# endif
+ifeq ($(UNAME), Linux)
+	RL_DIR = /usr/include
+else
+	RL_DIR = $(shell brew --prefix readline)
+endif
 
-# ifeq ($(UNAME), Linux)
-# 	RL_FLAGS = -lreadline
-# else
-# 	RL_FLAGS = -L$(RL_DIR)/lib -lreadline
-# endif
+ifeq ($(UNAME), Linux)
+	RL_FLAGS = -lreadline
+else
+	RL_FLAGS = -L$(RL_DIR)/lib -lreadline
+endif
+
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(RL_DIR)/include
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
