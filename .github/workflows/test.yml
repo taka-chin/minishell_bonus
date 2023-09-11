@@ -4,13 +4,13 @@ on: [push,pull_request]
 jobs:
   Valgrind:
     runs-on: ubuntu-latest
-    name: A job Valgrind check
+    name: A job miinishell test
     steps:
       # To use this repository's private action,
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: leak check
+      - name: test
         run: |
           make
           chmod +x test2.sh
