@@ -14,9 +14,16 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-RL_DIR = $(shell brew --prefix readline)
+ifeq ($(UNAME), Linux)
+	RL_DIR = /usr/include
+	RL_FLAGS = -lreadline
+else
+	RL = $(shell brew --prefix readline)
+	RL_FLAGS = -L$(RL_DIR)/lib -lreadline
+endif
+# RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
-RL_FLAGS = -L$(RL_DIR)/lib -lreadline
+# RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \
