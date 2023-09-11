@@ -6,7 +6,7 @@ assert() {
     echo -n -e "$1" | bash >cmp >&-
     expected=$?
 
-    echo -n -e "$1" | ../minishell >out >&-
+    echo -n -e "$1" | ./minishell >out >&-
     actual=$?
 
     diff cmp out >/dev/null && echo -n -e '  diff \033[0;32mOK\033[0;37m' || echo -n -e '  diff \033[0;31mNG\033[0;37m'
