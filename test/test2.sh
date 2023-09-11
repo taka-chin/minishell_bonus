@@ -22,5 +22,5 @@ assert() {
 
 #$
 assert "ls"
-# assert "ls -l"
+assert "ls -l"
 # assert "cat Makefile"
