@@ -3,6 +3,9 @@
 assert() {
     printf '%-30s:' "\"$1\""
 
+		if [ ! -e "out" ]; then
+						touch out
+		fi
     echo -n -e "$1" | bash >cmp | exec >&-
     echo -n -e "$1" | bash
     expected=$?
@@ -24,5 +27,5 @@ assert() {
 
 #$
 assert "ls"
-# assert "ls -l"
-# assert "cat Makefile"
+assert "ls -l"
+assert "cat Makefile"
